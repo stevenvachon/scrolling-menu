@@ -1,8 +1,7 @@
-# BE SURE TO ALSO EDIT demo/.gitignore
+# This hides files (from master branch) when switching local branches
 
 coverage/
-demo/component.js
-demo/component.js.map
+demo/
 index-es5.js
 index-es5.js.map
 node_modules/

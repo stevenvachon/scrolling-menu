@@ -1,0 +1,71 @@
+{
+  "name": "scrolling-menu",
+  "description": "A (native) web component for a horizontally or vertically scrolling menu.",
+  "version": "1.0.0-alpha",
+  "license": "MIT",
+  "author": "Steven Vachon <contact@svachon.com> (https://svachon.com)",
+  "repository": "github:stevenvachon/scrolling-menu",
+  "main": "index-es5.js",
+  "dependencies": {
+    "create-html-template-element": "^1.0.0",
+    "is-string": "^1.0.4",
+    "replace-dom-string": "^1.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-private-methods": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.3",
+    "gh-pages": "^2.0.1",
+    "gzip-size-cli": "^3.0.0",
+    "mocha": "^6.1.4",
+    "npm-watch": "~0.6.0",
+    "nyc": "^14.1.0",
+    "parcel": "^1.12.3",
+    "puppeteer": "^1.15.0",
+    "puppeteer-to-istanbul": "^1.2.2"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "scripts": {
+    "build": "npm run build-release && npm run build-demo",
+    "build-demo": "parcel build index-es5.js --log-level=1 --no-cache --out-dir=demo --out-file=component.js --public-url='.' && gzip-size demo/component.js",
+    "build-release": "babel index.js --out-file=index-es5.js --plugins=@babel/proposal-private-methods,@babel/proposal-class-properties,add-module-exports --presets=@babel/env --source-maps",
+    "build:watch": "npm-watch build",
+    "ci": "npm run test && nyc report --reporter=text-lcov | coveralls",
+    "posttest": "nyc report --reporter=text-summary --reporter=html",
+    "prepublishOnly": "npm test && gh-pages --dist=demo --dotfiles",
+    "pretest": "npm run build",
+    "test": "nyc --silent mocha test.js --bail --check-leaks --timeout=5000",
+    "test:watch": "npm-watch test"
+  },
+  "watch": {
+    "build": {
+      "inherit": true,
+      "patterns": [
+        "index.js"
+      ]
+    },
+    "test": {
+      "inherit": true,
+      "patterns": [
+        "index.js",
+        "test.js"
+      ]
+    }
+  },
+  "files": [
+    "index.js",
+    "index-es5.js",
+    "index-es5.js.map"
+  ],
+  "keywords": [
+    "component",
+    "web-component"
+  ]
+}
