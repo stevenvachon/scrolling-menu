@@ -1,0 +1,75 @@
+{
+  "private": true,
+  "name": "scrolling-menu",
+  "description": "A (native) web component for a menu that scrolls horizontally or vertically.",
+  "version": "1.0.0-alpha",
+  "license": "MIT",
+  "author": "Steven Vachon <contact@svachon.com> (https://svachon.com)",
+  "repository": "github:stevenvachon/scrolling-menu",
+  "main": "index-es5.js",
+  "dependencies": {
+    "create-html-template-element": "^1.0.0",
+    "hyperlist": "^1.0.0",
+    "replace-dom-string": "^2.0.0",
+    "tween-functions": "^1.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-private-methods": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.4",
+    "gh-pages": "^2.0.1",
+    "gzip-size-cli": "^3.0.0",
+    "mocha": "^6.1.4",
+    "npm-watch": "~0.6.0",
+    "nyc": "^14.1.1",
+    "parcel": "^1.12.3",
+    "puppeteer": "^1.18.1",
+    "puppeteer-to-istanbul": "^1.2.2",
+    "rimraf": "^2.6.3"
+  },
+  "engines": {
+    "node": ">= 10"
+  },
+  "scripts": {
+    "build": "npm run build-release && npm run build-demo && npm run build-size",
+    "build-demo": "parcel build index-es5.js --log-level=1 --no-cache --out-dir=demo --out-file=component.js --public-url='.'",
+    "build-release": "babel index.js --out-file=index-es5.js --plugins=@babel/proposal-class-properties,@babel/proposal-private-methods,add-module-exports --presets=@babel/env --source-maps",
+    "build-size": "parcel build index-es5.js --experimental-scope-hoisting --log-level=0 --no-cache --no-source-maps --out-dir='.' --out-file=temp.js && gzip-size temp.js && rimraf temp.js",
+    "build:watch": "npm-watch build",
+    "ci": "npm run test && nyc report --reporter=text-lcov | coveralls",
+    "posttest": "nyc report --reporter=text-summary --reporter=html",
+    "prepublishOnly": "npm test && gh-pages --dist=demo --dotfiles",
+    "pretest": "npm run build",
+    "test": "nyc --silent mocha test.js --bail --check-leaks --timeout=5000",
+    "test:watch": "npm-watch test"
+  },
+  "watch": {
+    "build": {
+      "inherit": true,
+      "patterns": [
+        "index.js"
+      ]
+    },
+    "test": {
+      "inherit": true,
+      "patterns": [
+        "index.js",
+        "test.js"
+      ]
+    }
+  },
+  "files": [
+    "index.js",
+    "index-es5.js",
+    "index-es5.js.map"
+  ],
+  "keywords": [
+    "component",
+    "web-component"
+  ]
+}
