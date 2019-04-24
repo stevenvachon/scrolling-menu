@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>&lt;scrolling-menu&gt; demo</title>
+		<script src="component.js"></script>
+		<style>
+			body {
+				background-color: white;
+				color: black;
+				font-family: sans-serif;
+				font-size: 16px;
+				text-align: center;
+			}
+
+			/*:not(h1,h2,h3,h4,h5,h6) {*/
+			body :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+				font-size: inherit;
+			}
+
+			a {
+				color: #2f3ca8;
+			}
+
+			form {
+				display: flex;
+				flex-wrap: wrap;
+				margin: -0.5em -0.25em;
+				padding-bottom: 1em;
+			}
+
+			form fieldset {
+				border: 1px solid silver;
+				border-radius: .5em;
+				display: flex;
+				flex-grow: 1;
+				margin: .5em .25em;
+			}
+
+			form fieldset label {
+				margin: .5em;
+			}
+
+			hr {
+				background-color: black;
+				border: 0;
+				height: 1px;
+				margin-bottom: 2em;
+			}
+
+			label code {
+				font-size: 16px !important; /* weird */
+			}
+
+			scrolling-menu {
+				border-radius: .5em;
+			}
+
+			section {
+				margin: 0 auto;
+				max-width: 50em;
+				padding: 0 .75em;
+			}
+		</style>
+		<style>
+			scrolling-menu.basic {
+				background-color: #eeeeee;
+				border: .5em solid silver;
+			}
+		</style>
+		<style>
+			scrolling-menu.custom {
+				background: linear-gradient(to bottom, #2f3ca8 0%, #1e1d8a 100%);
+				border-color: #a0c523;
+				padding: 1em 0;
+			}
+
+			scrolling-menu.custom::part(decrement),
+			scrolling-menu.custom::part(increment) {
+				color: rgb(255,255,255, 95%);
+				text-shadow: 0 0 .25em rgba(0,0,0, 75%);
+			}
+
+			scrolling-menu.custom::part(decrement),
+			scrolling-menu.custom::part(increment) {
+				background: none;
+				border: 0;
+				cursor: pointer;
+				left: 50%;
+				overflow: hidden;
+				padding: 0;
+				position: absolute;
+				text-indent: 150%;
+      			transform: translateX(-50%);
+      			white-space: nowrap;
+      			width: 2em;
+			}
+
+			scrolling-menu.custom::part(decrement) {
+				top: 0;
+			}
+
+			scrolling-menu.custom::part(decrement)::before,
+			scrolling-menu.custom::part(increment)::before {
+				left: 0;
+				position: absolute;
+				text-align: center;
+				text-indent: 0;
+				width: 100%;
+			}
+
+			scrolling-menu.custom::part(decrement)::before {
+				content: '⬆︎';
+			}
+
+			scrolling-menu.custom::part(increment) {
+				bottom: 0;
+			}
+
+			scrolling-menu.custom::part(increment)::before {
+				content: '⬇︎';
+			}
+
+			scrolling-menu.custom::part(decrement):not(:hover),
+			scrolling-menu.custom::part(increment):not(:hover) {
+				transition: color .4s;
+			}
+
+			scrolling-menu.custom::part(decrement):hover,
+			scrolling-menu.custom::part(increment):hover {
+				color: white;
+				transition: color .3s;
+			}
+
+			scrolling-menu.custom::part(item) {
+				color: rgb(255,255,255, 95%);
+				text-shadow: 0 0 .125em rgba(0,0,0, 75%),
+							 0 0 .25em rgba(0,0,0, 75%);
+			}
+
+			scrolling-menu.custom::part(selected-item) {
+				color: white;
+				text-shadow: 0 0 2em rgba(255,255,255, 50%),
+							 0 0 .45em white,
+							 0 0 .35em rgba(255,255,255, 50%),
+							 0 0 .25em white;
+			}
+
+			scrolling-menu.custom:not([disabled]):not(:hover)::part(decrement),
+			scrolling-menu.custom:not([disabled]):not(:hover)::part(increment),
+			scrolling-menu.custom[disabled]::part(decrement),
+			scrolling-menu.custom[disabled]::part(increment) {
+				filter: opacity(0%);
+				transition: filter .4s,
+							visibility 0s .4s;
+				visibility: hidden;
+			}
+
+			scrolling-menu.custom:not([disabled]):hover::part(decrement),
+			scrolling-menu.custom:not([disabled]):hover::part(increment) {
+				filter: opacty(100%);
+				transition: filter .3s;
+			}
+
+			scrolling-menu.custom[disabled] {
+				cursor: not-allowed;
+				filter: opacity(50%) saturate(0%);
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1><code>&lt;scrolling-menu&gt;</code></h1>
+			<p><a href="https://github.com/stevenvachon/scrolling-menu">GitHub Repository</a></p>
+		</header>
+
+		<hr>
+
+		<section>
+			<form>
+				<fieldset>
+					<legend>State</legend>
+					<label>
+						<code>&lt;option&gt;</code> count
+						<select name="num-items">
+							<option>5</option>
+							<option>20</option>
+							<option>100</option>
+							<option>500</option>
+						</select>
+					</label>
+
+					<label>
+						<input type="checkbox" name="disabled">
+						<code>disabled</code>
+					</label>
+				</fieldset>
+
+				<fieldset>
+					<legend>Alignment</legend>
+					<label>
+						<code>align-items</code>
+						<select name="align-items">
+							<option selected>center</option>
+							<option>end</option>
+							<option>start</option>
+						</select>
+					</label>
+
+					<label>
+						<code>direction</code>
+						<select name="direction">
+							<option>horizontal</option>
+							<option selected>vertical</option>
+						</select>
+					</label>
+				</fieldset>
+			</form>
+
+			<p>Basically no styling:</p>
+			<scrolling-menu class="basic">
+				<noscript><p>JavaScript must be enabled.</p></noscript>
+			</scrolling-menu>
+
+			<p>Custom styling:</p>
+			<scrolling-menu class="custom">
+				<noscript><p>JavaScript must be enabled.</p></noscript>
+			</scrolling-menu>
+		</section>
+
+		<script>
+			const populateOptions = () => {
+				const length = numItems.selectedOptions[0].value;
+
+				scrollingMenus.forEach(scrollingMenu => {
+					scrollingMenu.querySelectorAll('option').forEach(option => option.remove());
+
+					const options = Array.from({length}, (_, i) => {
+						const option = document.createElement('option');
+						option.innerText = `Menu Item ${i + 1}`;
+						option.value = `menu-item-${i}`;
+						return option;
+					});
+
+					const fragment = document.createDocumentFragment();
+					options.forEach(option => fragment.appendChild(option));
+					scrollingMenu.appendChild(fragment);
+				});
+			};
+
+			const numItems = document.querySelector('select[name=num-items]');
+			const scrollingMenus = document.querySelectorAll('scrolling-menu');
+
+			const selects = [
+				{ attribute:'align-items', property:'alignItems' },
+				{ attribute:'direction',   property:'direction' }
+			];
+
+			document.querySelector('input[name=disabled]').addEventListener('input', ({target}) => {
+				scrollingMenus.forEach(scrollingMenu => scrollingMenu.disabled = target.checked);
+			});
+
+			selects.forEach(({attribute, property}) => {
+				document.querySelector(`select[name=${attribute}]`).addEventListener('input', ({target}) => {
+					scrollingMenus.forEach(scrollingMenu => scrollingMenu[property] = target.options[target.selectedIndex].value);
+				});
+			});
+
+			numItems.addEventListener('input', () => populateOptions());
+
+			populateOptions();
+		</script>
+	</body>
+</html>
