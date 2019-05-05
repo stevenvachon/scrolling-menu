@@ -1,5 +1,7 @@
 # scrolling-menu [![NPM Version][npm-image]][npm-url] ![File Size][filesize-image] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/stevenvachon/scrolling-menu.svg)](https://greenkeeper.io/)
+
 > A (native) web component for a horizontally or vertically scrolling menu.
 
 * Menu items are virtualized, meaning that only those within visible boundaries are added to the DOM tree, thereby supporting very long lists.
