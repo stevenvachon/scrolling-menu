@@ -28,7 +28,7 @@
     "npm-watch": "~0.6.0",
     "nyc": "^14.1.1",
     "parcel": "^1.12.3",
-    "puppeteer": "^1.18.1",
+    "puppeteer": "^2.0.0",
     "puppeteer-to-istanbul": "^1.2.2",
     "rimraf": "^2.6.3"
   },
