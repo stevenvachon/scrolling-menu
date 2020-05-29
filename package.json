@@ -22,7 +22,7 @@
     "babel-plugin-add-module-exports": "^1.0.2",
     "chai": "^4.2.0",
     "coveralls": "^3.0.4",
-    "gh-pages": "^2.0.1",
+    "gh-pages": "^3.0.0",
     "gzip-size-cli": "^3.0.0",
     "mocha": "^6.1.4",
     "npm-watch": "~0.6.0",
